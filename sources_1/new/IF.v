@@ -5,13 +5,15 @@ module IF(
     input [31:0] PC_Branch,
     output [31:0] PC_IF, INSTRUCTION_IF
 );
-    wire [31:0] mux_out, PC_out, adder_out, im_out;
+    wire [9:0] instruction_address = PC_IF[11:2];
+    wire [31:0] PC_MUX;
+    wire [31:0] PC_4_IF;
     
-    mux2_1 mux(adder_out, PC_Branch, PCSrc, mux_out);
-    PC pc(clk, reset, PC_write, mux_out, PC_out);
-    adder add(PC_out, 4, adder_out);
-    instruction_memory IM(PC_out >> 2, im_out);
+    PC PC_MODULE(clk,reset,PC_write,PC_MUX,PC_IF);
     
-    assign PC_IF = PC_out;
-    assign INSTRUCTION_IF = im_out;
+    instruction_memory INSTRUCTION_MEMORY_MODULE(instruction_address,INSTRUCTION_IF);
+    
+    adder ADDER_PC_4_IF(PC_IF, 32'b0100, PC_4_IF);
+      
+    mux2_1 MUX_PC(PC_4_IF, PC_Branch, PCSrc, PC_MUX); 
 endmodule

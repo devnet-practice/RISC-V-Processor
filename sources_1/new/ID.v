@@ -12,8 +12,9 @@ module ID(
     output [6:0] FUNCT7_ID, OPCODE_ID,
     output [4:0] RD_ID, RS1_ID, RS2_ID,
     output PCwrite, IF_IDwrite, control_sel,
-    output reg MemRead, MemtoReg, MemWrite, RegWrite, Branch, ALUSrc,
-    output reg [1:0] ALUop
+    output MemRead, MemtoReg, MemWrite, RegWrite, Branch, ALUSrc,
+    output [1:0] ALUop,
+    output [31:0] PC_Branch
 );
     assign FUNCT3_ID = INSTRUCTION_ID[14:12];
     assign FUNCT7_ID = INSTRUCTION_ID[31:25];
@@ -22,7 +23,7 @@ module ID(
     assign RS1_ID = INSTRUCTION_ID[19:15];
     assign RS2_ID = INSTRUCTION_ID[24:20];
 
-    hazard_detection(RD_ID, RS1_ID, RS2_ID, MemRead_EX, PCwrite, IF_IDwrite, control_sel);
+    hazard_detection hazard(RD_ID, RS1_ID, RS2_ID, MemRead_EX, PCwrite, IF_IDwrite, control_sel);
     
     control_path control(OPCODE_ID, control_sel, MemRead, MemtoReg, MemWrite,
                          RegWrite, Branch, ALUSrc, ALUop);
@@ -31,4 +32,6 @@ module ID(
                        REG_DATA1_ID, REG_DATA2_ID);
                        
     imm_gen imm(INSTRUCTION_ID, IMM_ID);
+    
+    adder adder_id(PC_ID, IMM_ID << 1, PC_Branch);
 endmodule

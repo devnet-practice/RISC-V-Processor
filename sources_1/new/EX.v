@@ -19,7 +19,8 @@ module EX(
     output ZERO_EX,
     output [31:0] ALU_OUT_EX, PC_Branch_EX, REG_DATA2_EX_FINAL
 );
-    wire mux_reg1_out, mux_reg2_out, mux_alu_out, ALU_input_ex;
+    wire [31:0] mux_reg1_out, mux_reg2_out, mux_alu_out;
+    wire [3:0] ALU_input_ex;
     
     adder adder_ex(PC_EX, IMM_EX, PC_Branch_EX);
     

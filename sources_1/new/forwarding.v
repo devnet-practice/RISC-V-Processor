@@ -6,6 +6,9 @@ module forwarding(
     output reg [1:0] forwardA, forwardB
 );
     always@(*) begin
+        forwardA = 2'b00;
+        forwardB = 2'b00;
+
         if (ex_mem_regwrite && ex_mem_rd != 5'b0 && ex_mem_rd == rs1) begin
             forwardA = 2'b10;
         end
@@ -19,6 +22,7 @@ module forwarding(
             mem_wb_rd == rs1) begin
             forwardA = 2'b01;
         end
+        
         
         if (mem_wb_regwrite && mem_wb_rd != 5'b0 && 
             ~(ex_mem_regwrite && ex_mem_rd != 5'b0 && ex_mem_rd == rs2) &&

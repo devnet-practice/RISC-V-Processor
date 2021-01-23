@@ -24,8 +24,8 @@ module EX(
     
     adder adder_ex(PC_EX, IMM_EX, PC_Branch_EX);
     
-    mux4_1 mux_reg1_ex(REG_DATA1_EX, ALU_DATA_WB, ALU_OUT_MEM, 0, forwardA, mux_reg1_out);
-    mux4_1 mux_reg2_ex(REG_DATA2_EX, ALU_DATA_WB, ALU_OUT_MEM, 0, forwardA, mux_reg2_out);
+    mux4_1 mux_reg1_ex(REG_DATA1_EX, ALU_DATA_WB, ALU_OUT_MEM, 32'b0, forwardA, mux_reg1_out);
+    mux4_1 mux_reg2_ex(REG_DATA2_EX, ALU_DATA_WB, ALU_OUT_MEM, 32'b0, forwardB, mux_reg2_out);
     
     mux2_1 mux_alu_ex(mux_reg2_out, IMM_EX, ALUSrc_EX, mux_alu_out);
         

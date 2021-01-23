@@ -68,6 +68,16 @@ module control_path(
                     Branch = 1'b1;
                     ALUop = 2'b01;
                 end
+                
+                default: begin
+                    MemRead = 1'b0;
+                    MemtoReg = 1'b0;
+                    MemWrite = 1'b0;
+                    RegWrite = 1'b0;
+                    Branch = 1'b0;
+                    ALUSrc = 1'b0;
+                    ALUop = 2'b0;
+                end
             endcase
         end
     end

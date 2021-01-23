@@ -25,6 +25,7 @@ module ALUcontrol(
             12'b01xxxxxxx101: ALUinput = 4'b1000;     // bge
             12'b01xxxxxxx110: ALUinput = 4'b0111;     // bltu
             12'b01xxxxxxx111: ALUinput = 4'b0111;     // bgeu
+            default:          ALUinput = 4'b0010;     // add
         endcase
     end
 endmodule

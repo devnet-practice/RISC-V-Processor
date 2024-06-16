@@ -18,18 +18,10 @@ module RISC_V_TB;
   always #5 clk=~clk;
   
   initial begin
-    #0 clk=1'b0;
-       reset=1'b1;
-       
-//       IF_ID_write = 1'b1;      
-//       PCSrc = 1'b0;
-//       PC_write = 1'b1;    
-//       PC_Branch = 32'b0;  
-//       RegWrite_WB = 1'b0;       
-//       ALU_DATA_WB = 32'b0;
-//       RD_WB = 5'b0;           
+    #0 clk=1'b1;
+       reset=1'b1;      
        
     #10 reset=1'b0;
-    #200 $finish;
+    #300 $finish;
   end
 endmodule

@@ -64,14 +64,14 @@ module RISC_V(
         
     data_memory memory(clk, MemRead_MEM, MemWrite_MEM, ALU_OUT_MEM >> 2, REG_DATA2_MEM_FINAL, read_data_MEM);
     
-    assign PCSrc = (Branch_MEM && ZERO_MEM);
-    assign PC_EX = PC_ID_EX;
-    assign PC_MEM = PC_Branch_MEM;
-    assign DATA_MEMORY_MEM = read_data_MEM;
-    assign pipeline_stall = control_sel;
-    
     pipeline_mem_wb p4(clk, reset, 1'b1, read_data_MEM, ALU_OUT_MEM, RegWrite_MEM, MemtoReg_MEM, RD_MEM,
         read_data_WB, ALU_OUT_WB, RegWrite_WB, MemtoReg_WB, RD_WB);
         
     mux2_1 mux_WB(read_data_WB, ALU_OUT_WB, MemtoReg_WB, ALU_DATA_WB);
+
+    assign PCSrc = (Branch_MEM & ZERO_MEM);
+    assign PC_EX = PC_ID_EX;
+    assign PC_MEM = PC_Branch_MEM;
+    assign DATA_MEMORY_MEM = read_data_MEM;
+    assign pipeline_stall = control_sel;
 endmodule 

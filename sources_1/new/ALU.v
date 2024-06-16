@@ -16,7 +16,7 @@ module ALU(
             4'b0101: out = ina >> inb;      // srl, srli
             4'b0100: out = ina << inb;      // sll, slli
             4'b1001: out = ina >>> inb;     // sra, srai
-            4'b0111: out = ina < inb;       // sltu
+            4'b0111: out = (ina < inb);     // sltu
             4'b1000: begin                  // slt
                 if (ina[31] != inb[31])
                     out = (ina[31] > inb[31]);
